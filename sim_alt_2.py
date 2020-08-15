@@ -4,13 +4,6 @@ import random
 import statistics
 
 
-def launch_process_reader(file_name):
-    for dic in open(file_name, "r"):
-        data = ast.literal_eval(dic)
-
-        print(data["name"])
-
-
 class Falcon9(object):
     def __init__(self, env):
         self.env = env
@@ -33,10 +26,18 @@ class Falcon9(object):
             yield self.env.timeout(duration)
         elif process_type == 2:
             # process_asynchronous_integer_check()
-            print("test")
+            env.process(self.process_asynchronous_integer_check(env, process_name, duration))
+            # print("test")
+
+    def process_asynchronous_integer_check(self, env, process_name, duration):
+        start_time = env.now
+        while env.now - start_time < duration:
+            # log to CSV eventually
+            print(process_name, " continuous data: ", env.now + 100)
+            yield self.env.timeout(1)
 
 
-env = simpy.rt.RealtimeEnvironment(factor=1)
+env = simpy.rt.RealtimeEnvironment(factor=0.2)
 # env.process(bool_check(env))
 f9 = Falcon9(env)
-env.run(until=61)
+env.run(until=180)

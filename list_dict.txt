@@ -1,2 +1,10 @@
-{"name": "TVC Check", "duration": 5, "type": 1}
-{"name": "Software Setup", "duration": 5, "type": 1}
+{"name": "Countdown Start", "duration": 10, "type": 1}
+{"name": "Flight Software Final Setups complete", "duration": 5, "type": 1}
+{"name": "TEA-TEB Ignition System Setup", "duration": 0, "type": 1}
+{"name": "Stage 2 Transmitter Re-Activation", "duration": 45, "type": 1}
+{"name": "M1D Trim Valve Setup Complete", "duration": 60, "type": 1}
+{"name": "M1D & MVac Hydraulic Pressurization", "duration": 30, "type": 2}
+{"name": "MVac Fuel Trim Valve Setup", "duration": 25, "type": 1}
+{"name": "M1D Engines to TVC-Null Position", "duration": 5, "type": 1}
+{"name": "Engine Chill Readiness", "duration": 25, "type": 1}
+{"name": "Stage 1 Helium Cushion Secured", "duration": 5, "type": 1}
