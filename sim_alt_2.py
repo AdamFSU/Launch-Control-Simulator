@@ -22,12 +22,14 @@ class Falcon9(object):
     def process_manager(self, env, process_name, duration, process_type):
         if process_type == 1:
             # process_boolean_check()
-            print(process_name, env.now)
-            yield self.env.timeout(duration)
+            yield env.process(self.process_boolean_check(env, process_name, duration))
         elif process_type == 2:
             # process_asynchronous_integer_check()
-            env.process(self.process_asynchronous_integer_check(env, process_name, duration))
-            # print("test")
+            yield env.process(self.process_asynchronous_integer_check(env, process_name, duration))
+
+    def process_boolean_check(self, env, process_name, duration):
+        print(process_name, env.now)
+        yield self.env.timeout(duration)
 
     def process_asynchronous_integer_check(self, env, process_name, duration):
         start_time = env.now
