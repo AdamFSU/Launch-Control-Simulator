@@ -38,6 +38,9 @@ class Falcon9(object):
             print(process_name, " continuous data: ", env.now + 100)
             yield self.env.timeout(1)
 
+# Create a main() function at some point, shouldn't script and do OOP classes together
+# Look at realpython tutorial for simpy
+
 
 env = simpy.rt.RealtimeEnvironment(factor=0.2)
 # env.process(bool_check(env))
