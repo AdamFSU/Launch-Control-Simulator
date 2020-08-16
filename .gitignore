@@ -130,3 +130,6 @@ dmypy.json
 
 # Pycharm IDE settings
 .idea/
+
+# Qt build
+build-Launch-Control-GUI-Desktop_Qt_5_15_0_GCC_64bit-Debug/
