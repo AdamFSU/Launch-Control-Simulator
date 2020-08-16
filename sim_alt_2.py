@@ -10,12 +10,12 @@ class Falcon9(object):
         HOST = '127.0.0.1' # hostname
         PORT = 1234
 
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.connect((HOST, PORT))
-            s.sendall(b'Hello, world')
-            data = s.recv(1024)
-
-        print('Received', repr(data))
+        self.socket_connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket_connection.connect((HOST, PORT))
+            # self.socket_connection.sendall(b'Hello, world')
+        #     data = self.socket_connection.recv(1024)
+        #
+        # print('Received', repr(data))
 
         self.env = env
         # start the launch process everytime an instance is created
@@ -45,7 +45,8 @@ class Falcon9(object):
     def process_asynchronous_integer_check(self, env, process_name, duration):
         start_time = env.now
         while env.now - start_time < duration:
-            # log to CSV eventually
+            # send across socket to Qt
+            self.socket_connection.send(bytes("Data to send", "utf-8"))
             print(process_name, " continuous data: ", env.now + 100)
             yield self.env.timeout(1)
 

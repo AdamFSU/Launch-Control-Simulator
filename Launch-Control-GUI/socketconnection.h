@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QTcpServer>
 #include <QHostAddress>
+#include <QTcpSocket>
 
 class SocketConnection : public QObject
 {
@@ -17,9 +18,11 @@ public slots:
     void establishConnection();
     void disconnected();
     void connectionEstablished();
+    void readData();
 
 private:
     QTcpServer *server;
+    QTcpSocket *clientConnection;
 
 };
 

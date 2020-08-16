@@ -1,5 +1,6 @@
 #include "socketconnection.h"
 #include <QDebug>
+#include <QIODevice>
 
 SocketConnection::SocketConnection(QObject *parent) : QObject(parent)
 {
@@ -25,4 +26,11 @@ void SocketConnection::disconnected()
 void SocketConnection::connectionEstablished()
 {
     qDebug() << "connection established!";
+    clientConnection = server->nextPendingConnection();
+    connect(clientConnection, &QIODevice::readyRead, this, &SocketConnection::readData);
+}
+
+void SocketConnection::readData()
+{
+    qDebug() << "There is data ready to be read";
 }
