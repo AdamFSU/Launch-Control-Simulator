@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import ast
 import simpy
 import random
