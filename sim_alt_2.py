@@ -1,11 +1,24 @@
+#!/usr/bin/python
+
 import ast
 import simpy
 import random
 import statistics
+import socket
 
 
 class Falcon9(object):
     def __init__(self, env):
+        HOST = '127.0.0.1' # hostname
+        PORT = 1234
+
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((HOST, PORT))
+            s.sendall(b'Hello, world')
+            data = s.recv(1024)
+
+        print('Received', repr(data))
+
         self.env = env
         # start the launch process everytime an instance is created
         self.action = env.process(self.launch_process_reader("list_dict.txt"))
