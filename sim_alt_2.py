@@ -24,11 +24,8 @@ class Falcon9(object):
     def launch_process_reader(self, file_name):
         for dic in open(file_name, "r"):
             data = ast.literal_eval(dic)
-            yield self.env.process(self.launch(env, data["name"], data["duration"], data["type"]))
+            yield self.env.process(self.process_manager(env, data["name"], data["duration"], data["type"]))
             # print(data["name"])
-
-    def launch(self, env, process_string, process_duration, process_type):
-        yield self.env.process(self.process_manager(env, process_string, process_duration, process_type))
 
     def process_manager(self, env, process_name, duration, process_type):
         if process_type == 1:
@@ -43,12 +40,11 @@ class Falcon9(object):
         yield self.env.timeout(duration)
 
     def process_asynchronous_integer_check(self, env, process_name, duration):
-        start_time = env.now
-        while env.now - start_time < duration:
-            # send across socket to Qt
-            self.socket_connection.send(bytes("Data to send", "utf-8"))
-            print(process_name, " continuous data: ", env.now + 100)
-            yield self.env.timeout(1)
+        # send across socket to Qt
+        self.socket_connection.send(bytes("Data to send", "utf-8"))
+        print(process_name, " continuous data: ", env.now + 100)
+        yield self.env.timeout(1)
+
 
 # Create a main() function at some point, shouldn't script and do OOP classes together
 # Look at realpython tutorial for simpy
