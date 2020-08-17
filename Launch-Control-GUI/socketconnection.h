@@ -5,6 +5,7 @@
 #include <QTcpServer>
 #include <QHostAddress>
 #include <QTcpSocket>
+#include <QDataStream>
 
 class SocketConnection : public QObject
 {
@@ -13,6 +14,7 @@ public:
     explicit SocketConnection(QObject *parent = nullptr);
 
 signals:
+    void new_data(float graph_data);
 
 public slots:
     void establishConnection();
@@ -23,6 +25,7 @@ public slots:
 private:
     QTcpServer *server;
     QTcpSocket *clientConnection;
+    QDataStream in;
 
 };
 
