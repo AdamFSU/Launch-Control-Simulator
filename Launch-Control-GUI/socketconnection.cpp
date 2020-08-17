@@ -1,6 +1,8 @@
 #include "socketconnection.h"
 #include <QDebug>
 #include <QIODevice>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 SocketConnection::SocketConnection(QObject *parent) : QObject(parent)
 {
@@ -27,20 +29,44 @@ void SocketConnection::connectionEstablished()
 {
     qDebug() << "connection established!";
     clientConnection = server->nextPendingConnection();
-    in.setDevice(clientConnection);
     connect(clientConnection, &QIODevice::readyRead, this, &SocketConnection::readData);
 }
 
 void SocketConnection::readData()
 {
-    qDebug() << "There is data ready to be read";
+//    qDebug() << "There is data ready to be read";
 
     QByteArray byteArray;
     byteArray = clientConnection->readAll();
     // Converting QByteArray to QString
     QString dataAsString = QString::fromUtf8(byteArray);
-    float data = dataAsString.toFloat();
-    qDebug() << "conversion from qstring to float: " << data;
-    emit new_data(data);
-    qDebug() << dataAsString;
+    QJsonDocument doc = QJsonDocument::fromJson(byteArray);
+    QJsonObject obj;
+    QString process_name;
+    double xValue = 0;
+    double yValue = 0;
+    if(doc.isObject())
+    {
+        obj = doc.object();
+    }
+    else
+    {
+        qDebug() << "Document is not a JSON Object";
+    }
+    if(obj.contains("name") && obj["name"].isString())
+    {
+        process_name = obj["name"].toString();
+    }
+    if(obj.contains("value1") && obj["value1"].isDouble())
+    {
+        xValue = obj["value1"].toDouble();
+    }
+    if(obj.contains("value2") && obj["value2"].isDouble())
+    {
+        yValue = obj["value2"].toDouble();
+    }
+//    float data = dataAsString.toFloat();
+//    qDebug() << "conversion from qstring to float: " << data;
+    emit new_data(process_name, xValue, yValue);
+    qDebug().noquote() << "Qt data: " << dataAsString;
 }

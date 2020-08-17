@@ -14,7 +14,7 @@ public:
     explicit SocketConnection(QObject *parent = nullptr);
 
 signals:
-    void new_data(float graph_data);
+    void new_data(QString name, double xValue, double yValue);
 
 public slots:
     void establishConnection();
@@ -25,7 +25,6 @@ public slots:
 private:
     QTcpServer *server;
     QTcpSocket *clientConnection;
-    QDataStream in;
 
 };
 

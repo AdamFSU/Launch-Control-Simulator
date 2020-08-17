@@ -23,15 +23,31 @@ MainWindow::MainWindow(QWidget *parent)
     ui->customPlot->yAxis->setLabel("y");
     // set axes ranges, so we see all data:
     ui->customPlot->xAxis->setRange(0, 50);
-    ui->customPlot->yAxis->setRange(0, 5);
+    ui->customPlot->yAxis->setRange(0, 100);
     ui->customPlot->replot();
+
+    ui->customPlot2->addGraph();
+    ui->customPlot2->xAxis->setLabel("x");
+    ui->customPlot2->yAxis->setLabel("y");
+    ui->customPlot2->xAxis->setRange(0, 50);
+    ui->customPlot2->yAxis->setRange(0, 100);
+    ui->customPlot2->replot();
 }
 
-void MainWindow::display_new_data(float data)
+void MainWindow::display_new_data(QString name, double xValue, double yValue)
 {
-    qDebug() << "updating graph!" << data;
-    ui->customPlot->graph(0)->addData(data, 2);
-    ui->customPlot->replot();
+//    qDebug() << "updating graph!" << name << "xValue: " << xValue << "yValue: " << yValue;
+    if(name == "M1D Hydraulic Pressurization")
+    {
+        ui->customPlot->graph(0)->addData(xValue, yValue);
+        ui->customPlot->replot();
+    }
+    if(name == "LOX Fueling")
+    {
+        ui->customPlot2->graph(0)->addData(xValue, yValue);
+        ui->customPlot2->replot();
+    }
+
 }
 
 MainWindow::~MainWindow()

@@ -12,7 +12,9 @@ def sub(env, process_name, duration):
     start_time = env.now
     while env.now - start_time < duration:
         yield env.timeout(0.1)
-        socket_connection.send(bytes(str("%.3f" % env.now), "utf-8"))
+        json_string = '{"name": "' + process_name + '", "value1": ' + str("%.3f" % (env.now / 2)) \
+                      + ', "value2": ' + ("%.3f" % env.now) + '}'
+        socket_connection.send(bytes(json_string, "utf-8"))
         print(process_name, env.now)
 
 

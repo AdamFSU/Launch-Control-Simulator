@@ -15,7 +15,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void display_new_data(float data);
+    void display_new_data(QString name, double xValue, double yValue);
 
 private:
     Ui::MainWindow *ui;
