@@ -1,5 +1,7 @@
 import simpy
 import socket
+from _thread import *
+import threading
 from simpy.util import start_delayed
 
 
@@ -24,11 +26,20 @@ def continuous_process(env, process_name, start_time, duration):
     return ret
 
 
+# TODO: Implement call back function inside thread to return a value when data received
+def threaded(conn):
+    while True:
+        data = conn.recv(1024)
+        print(data.decode("utf-8"))
+
+
 HOST = '127.0.0.1' # hostname
 PORT = 1234
 
 socket_connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 socket_connection.connect((HOST, PORT))
+
+start_new_thread(threaded, (socket_connection,))
 
 
 env = simpy.rt.RealtimeEnvironment(factor=0.2)

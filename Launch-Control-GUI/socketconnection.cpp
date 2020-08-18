@@ -71,7 +71,15 @@ void SocketConnection::readData()
     qDebug().noquote() << "Qt data: " << dataAsString;
 }
 
-void SocketConnection::sendData()
+void SocketConnection::sendData(QString name)
 {
     qDebug() << "Sending message to abort Launch!";
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    QString jsonMessage;
+    jsonMessage = "{\"name\": \"" + name + "\", \"status\": \"FAIL\"}";
+
+    out << jsonMessage;
+
+    clientConnection->write(block);
 }
