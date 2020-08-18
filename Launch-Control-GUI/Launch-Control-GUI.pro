@@ -16,12 +16,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    datamonitor.cpp \
     main.cpp \
     mainwindow.cpp \
     qcustomplot.cpp \
     socketconnection.cpp
 
 HEADERS += \
+    datamonitor.h \
     mainwindow.h \
     qcustomplot.h \
     socketconnection.h

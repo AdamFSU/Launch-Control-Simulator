@@ -21,6 +21,7 @@ public slots:
     void disconnected();
     void connectionEstablished();
     void readData();
+    void sendData();
 
 private:
     QTcpServer *server;

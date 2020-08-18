@@ -70,3 +70,8 @@ void SocketConnection::readData()
     emit new_data(process_name, xValue, yValue);
     qDebug().noquote() << "Qt data: " << dataAsString;
 }
+
+void SocketConnection::sendData()
+{
+    qDebug() << "Sending message to abort Launch!";
+}

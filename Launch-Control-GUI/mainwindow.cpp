@@ -11,9 +11,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     QThread * thread = new QThread;
     SocketConnection * conn = new SocketConnection;
+    DataMonitor * dmon = new DataMonitor;;
     conn->moveToThread(thread);
     connect(thread, SIGNAL(started()), conn, SLOT(establishConnection()));
     connect(conn, &SocketConnection::new_data, this, &MainWindow::display_new_data);
+    connect(conn, &SocketConnection::new_data, dmon, &DataMonitor::monitorData);
+    connect(dmon, &DataMonitor::check_failed, conn, &SocketConnection::sendData);
     thread->start();
 
     // create graph and assign data to it

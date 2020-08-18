@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "socketconnection.h"
+#include "datamonitor.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
