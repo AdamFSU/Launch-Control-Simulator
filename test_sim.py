@@ -1,5 +1,7 @@
 import simpy
 import socket
+import sys
+import json
 from _thread import *
 import threading
 from simpy.util import start_delayed
@@ -31,6 +33,12 @@ def threaded(conn):
     while True:
         data = conn.recv(1024)
         print(data.decode("utf-8"))
+        # parse data
+        msg = data.decode("utf-8")
+        json_msg = json.loads(msg)
+        if json_msg["status"] == "FAIL":
+            print("should exit script here")
+            sys.exit("Scrubbing Launch....")
 
 
 HOST = '127.0.0.1' # hostname

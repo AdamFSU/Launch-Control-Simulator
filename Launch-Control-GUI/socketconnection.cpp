@@ -76,10 +76,15 @@ void SocketConnection::sendData(QString name)
     qDebug() << "Sending message to abort Launch!";
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
-    QString jsonMessage;
-    jsonMessage = "{\"name\": \"" + name + "\", \"status\": \"FAIL\"}";
+//    out.writeRawData("this is a test", 14);
+    std::string message = "{\"name\": \"" + name.toStdString() + "\", \"status\": \"FAIL\"}";
+    int messageLen = message.length();
+    const char *c = message.c_str();
+    out.writeRawData(c, messageLen);
+//    QString jsonMessage;
+//    jsonMessage = "{\"name\": \"" + name + "\", \"status\": \"FAIL\"}";
 
-    out << jsonMessage;
+//    out << jsonMessage;
 
     clientConnection->write(block);
 }
